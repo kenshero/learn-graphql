@@ -67,6 +67,20 @@ var queryType = new GraphQLObjectType({
       resolve: function(_, args){
         return products
       }
+    },
+    getProductByPrice: {
+      type: new GraphQLList(productType),
+      args: {
+        price: {
+          type: GraphQLInt
+        }
+      },
+      resolve: function(_, args){
+        var filterProduct = products.filter(function(product){
+          return product.price <= args.price
+        })
+        return filterProduct
+      }
     }
   })
 });
@@ -79,5 +93,6 @@ app.use('/graphql', graphqlHTTP({
   schema: MyGraphQLSchema,
   graphiql: true
 }));
+
 app.listen(PORT);
 console.log("Server running on localhost:", PORT);
