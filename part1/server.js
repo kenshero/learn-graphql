@@ -85,8 +85,39 @@ var queryType = new GraphQLObjectType({
   })
 });
 
+var mutationType = new GraphQLObjectType({
+  name: "mutationProduct",
+  description: "mutation of product",
+  fields: () => ({
+    addProduct: {
+      type: new GraphQLList(productType),
+      args: {
+        name: {
+         type: GraphQLString
+       },
+       price: {
+         type: GraphQLInt
+       },
+       category: {
+         type: new GraphQLList(GraphQLString)
+       }
+      },
+      resolve: function(_, args){
+        var product = {
+          name: args.name,
+          price: args.price,
+          category: args.category
+        }
+        products.push(product)
+        return products
+      }
+    }
+  })
+});
+
 var MyGraphQLSchema = new GraphQLSchema({
-  query: queryType
+  query: queryType,
+  mutation: mutationType
 });
 
 app.use('/graphql', graphqlHTTP({
