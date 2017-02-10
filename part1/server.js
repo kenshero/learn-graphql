@@ -9,6 +9,26 @@ var GraphQLInt = graphql.GraphQLInt;
 var products = require('./data');
 var app = express();
 var PORT = process.env.port || 3000
+
+var voteType = new GraphQLObjectType({
+  name: "vote",
+  description: "vote of The product",
+  fields: () => ({
+   star: {
+     type: GraphQLInt,
+     description: "one_star of the vote",
+   },
+   men: {
+     type: GraphQLInt,
+     description: "men of vote",
+   },
+   women: {
+     type: GraphQLInt,
+     description: "women of vote",
+   }
+ })
+});
+
 var productType = new GraphQLObjectType({
   name: "products",
   description: "Detail of The product",
@@ -24,9 +44,14 @@ var productType = new GraphQLObjectType({
    category: {
      type: new GraphQLList(GraphQLString),
      description: "category of product",
+   },
+   vote: {
+     type: new GraphQLList(voteType),
+     description: "vote of product",
    }
  })
 });
+
 var queryType = new GraphQLObjectType({
   name: "queryProduct",
   description: "query of product",
@@ -45,9 +70,11 @@ var queryType = new GraphQLObjectType({
     }
   })
 });
+
 var MyGraphQLSchema = new GraphQLSchema({
   query: queryType
 });
+
 app.use('/graphql', graphqlHTTP({
   schema: MyGraphQLSchema,
   graphiql: true
