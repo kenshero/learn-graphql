@@ -9,7 +9,6 @@ var GraphQLInt = graphql.GraphQLInt;
 var products = require('./data');
 var app = express();
 var PORT = process.env.port || 3000
-
 var voteType = new GraphQLObjectType({
   name: "vote",
   description: "vote of The product",
@@ -28,7 +27,6 @@ var voteType = new GraphQLObjectType({
    }
  })
 });
-
 var productType = new GraphQLObjectType({
   name: "products",
   description: "Detail of The product",
@@ -51,7 +49,6 @@ var productType = new GraphQLObjectType({
    }
  })
 });
-
 var queryType = new GraphQLObjectType({
   name: "queryProduct",
   description: "query of product",
@@ -84,7 +81,6 @@ var queryType = new GraphQLObjectType({
     }
   })
 });
-
 var mutationType = new GraphQLObjectType({
   name: "mutationProduct",
   description: "mutation of product",
@@ -111,19 +107,29 @@ var mutationType = new GraphQLObjectType({
         products.push(product)
         return products
       }
+    },
+    deleteProduct: {
+      type: new GraphQLList(productType),
+      args: {
+        name: {
+         type: GraphQLString
+       }
+      },
+      resolve: function(_, args){
+        return products.filter(function(product){
+          return product.name != args.name // bad
+        })
+      }
     }
   })
 });
-
 var MyGraphQLSchema = new GraphQLSchema({
   query: queryType,
   mutation: mutationType
 });
-
 app.use('/graphql', graphqlHTTP({
   schema: MyGraphQLSchema,
   graphiql: true
 }));
-
 app.listen(PORT);
 console.log("Server running on localhost:", PORT);
