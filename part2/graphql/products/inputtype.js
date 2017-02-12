@@ -25,6 +25,10 @@ var productType = new GraphQLObjectType({
   name: "products",
   description: "Detail of The product",
   fields: () => ({
+    _id: {
+     type: GraphQLString,
+     description: "id of the product",
+    },
     name: {
      type: GraphQLString,
      description: "Name of the product",
