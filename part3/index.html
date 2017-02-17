@@ -12,21 +12,21 @@
       <div class="row">
         <div class="jumbotron">
           <h1>GraphQL Client Test !</h1>
-            <form class="form-inline">
+            <div class="form-inline">
               <div class="form-group">
                 <label>Name : </label>
-                <input type="text" class="form-control" placeholder="Name">
+                <input type="text" class="form-control" placeholder="Name" v-model="prouductName">
               </div>
               <div class="form-group">
                 <label>Price : </label>
-                <input type="text" class="form-control" placeholder="10xx">
+                <input type="text" class="form-control" placeholder="10xx" v-model="prouductPrice">
               </div>
               <div class="form-group">
                 <label>Category</label>
-                <input type="text" class="form-control" placeholder="separate by commma ',' ">
+                <input type="text" class="form-control" placeholder="separate by commma ','" v-model="prouductCategory">
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+              <button type="submit" class="btn btn-primary" v-on:click="addProduct">Submit</button>
+            </div>
         </div>
       </div>
       <div class="row">
@@ -47,7 +47,7 @@
               <td>{{ product.price }}</td>
               <td>{{ product.category }}</td>
               <td>
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger" v-on:click="deleteProduct(product._id)">Delete</button>
               </td>
             </tr>
           </tbody>

@@ -1,9 +1,13 @@
 import client from './apolloconf'
-import { getProductsQuery } from './documents'
+import { getProductsQuery, createProduct, deleteProduct} from './documents'
+
 let app = new Vue({
   el: '#app',
   data: {
-    products: [],
+    prouductName: "",
+    prouductPrice: "",
+    prouductCategory: "",
+    products: []
   },
   methods: {
     getProducts: function() {
@@ -13,7 +17,30 @@ let app = new Vue({
         }).catch( (error) => {
             console.error(error)
         });
+    },
+    addProduct: function() {
+        const variables = {
+            name: this.prouductName,
+            price: parseInt(this.prouductPrice),
+            category: this.prouductCategory.split(",")
+        }
+        client.mutate(createProduct(variables)).then( gqlResult => {
+            this.getProducts()
+        }).catch( (error) => {
+            console.error(error)
+        });
+    },
+    deleteProduct: function(productID) {
+        const variables = {
+            id: productID
+        }
+        client.mutate(deleteProduct(variables)).then( gqlResult => {
+            this.getProducts()
+        }).catch( (error) => {
+            console.error(error)
+        });
     }
   }
 })
+
 app.getProducts()
