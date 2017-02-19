@@ -1,6 +1,6 @@
 #WorkShop GraphQL
 
-### Provide
+### Link
 
     * Part 1 https://goo.gl/mRQoSE
     * Part 1.5 https://goo.gl/I72Ff5
