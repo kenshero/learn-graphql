@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "express": "^4.14.1",
+    "express-graphql": "^0.6.3",
+    "graphql": "^0.9.1",
+    "graphql-subscriptions": "^0.3.0",
+    "graphql-tools": "^0.10.0",
+    "lodash.merge": "^4.6.0",
+    "subscriptions-transport-ws": "^0.5.3"
+  },
+  "name": "graphql-tools",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "license": "MIT"
+}
