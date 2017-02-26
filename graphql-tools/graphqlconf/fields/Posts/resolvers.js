@@ -31,7 +31,7 @@ const resolveFunctions = {
   },
   Subscription: {
     postUpvoted(post) {
-      console.log(post);
+      console.log("aaa");
       return post;
     },
   }

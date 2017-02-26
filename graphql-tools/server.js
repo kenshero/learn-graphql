@@ -10,6 +10,9 @@ const WS_PORT = process.env.WS_PORT || 3333;
 const MyGraphQLSchema = require('./graphqlconf/schema');
 const { subscriptionManager } = require('./graphqlconf/subscriptions');
 
+var cors = require('cors');
+app.use(cors())
+
 app.use('/graphql', graphqlHTTP({
   schema: MyGraphQLSchema,
   graphiql: true
@@ -25,7 +28,7 @@ const websocketServer = createServer((request, response) => {
 });
 
 websocketServer.listen(WS_PORT, () => console.log( // eslint-disable-line no-console
-  `Websocket Server is now running on http://localhost:${WS_PORT}`
+  `Websocket Server is now running on ws://localhost:${WS_PORT}`
 ));
 
 new SubscriptionServer({ subscriptionManager }, {

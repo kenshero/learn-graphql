@@ -23,7 +23,9 @@ const Mutation = `
 `;
 
 const Subscription = `
-  type Subscription { postUpvoted: Posts }
+  type Subscription { 
+    postUpvoted: Posts
+  }
 `;
 
 const SchemaDefinition = `
