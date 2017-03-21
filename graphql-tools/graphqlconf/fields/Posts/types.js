@@ -1,8 +1,15 @@
 const typeAuthor = require('../Authors/types');
 
+const PostsData = `
+    type PostsData {
+      postData: [Posts]
+      postPageInfo: PostPageInfo
+    }
+`;
+
 const Posts = `
     type Posts {
-      id: Int!
+      id: String
       title: String
       content: String
       votes: Int
@@ -10,4 +17,12 @@ const Posts = `
     }
 `;
 
-module.exports = () => [Posts, typeAuthor]
+const PostPageInfo = `
+    type PostPageInfo {
+      offset: Int
+      limit: Int
+      pageRange: Int
+    }
+`;
+
+module.exports = () => [PostsData, Posts, PostPageInfo, typeAuthor]

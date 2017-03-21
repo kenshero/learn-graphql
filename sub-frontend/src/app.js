@@ -4,19 +4,29 @@ import { getPostsQuery, upVotePost } from './documents'
 let app = new Vue({
   el: '#app',
   data: {
-    posts: []
+    posts: [],
+    pageInfo : {},
+    offset: 0,
+    activePage: 0,
+    limit: 4,
+    pageRange: 0,
   },
   methods: {
     getPosts: function() {
-        client.query(getPostsQuery).then( gqlResult => {
+      console.log(this.offset)
+      const variables = {
+        offset: this.offset,
+        limit: this.limit
+      }
+        client.query(getPostsQuery(variables)).then( gqlResult => {
             const {errors, data} = gqlResult
-            this.posts = data.posts
+            this.posts = data.posts.postData
+            this.pageInfo = data.posts.postPageInfo
         }).catch( (error) => {
             console.error(error)
         });
     },
     upvoted: function(id) {
-        console.log(client)
         const variables = {
             postID: id
         }
@@ -25,6 +35,11 @@ let app = new Vue({
         }).catch( (error) => {
             console.error(error)
         });
+    },
+    paging: function(offset, activePage) {
+      this.offset = offset 
+      this.activePage = activePage 
+      this.getPosts()
     }
   }
 })

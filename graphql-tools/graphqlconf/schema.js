@@ -9,10 +9,10 @@ var merge = require('lodash.merge');
 
 const Query = `
   type Query {
-    posts: [Posts]
+    posts(offset: Int, limit: Int): PostsData
     post(postID: Int!): Posts
     authors: [Authors]
-    postByAuthor(authorID: Int!): [Posts]
+    postByAuthor(authorID: Int!, offset: Int, limit: Int): [Posts]
   }
 `;
 

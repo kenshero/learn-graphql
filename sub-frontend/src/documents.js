@@ -1,16 +1,28 @@
 import gql from 'graphql-tag'
 
-export const getPostsQuery = {
+export const getPostsQuery = (variables) => {
+  return {
     query : gql`
-      query {
-        posts {
-          id
-          title
-          votes
-        } 
+      query($offset: Int, $limit: Int){
+        posts(
+              offset: $offset
+              limit: $limit
+            ) {
+          postData {
+            id
+            title
+          }
+          postPageInfo {
+            offset
+            limit
+            pageRange
+          }
+        }
       }
     `,
+    variables: variables,
     forceFetch: true
+  }
 }
 
 export const upVotePost = (variables) => {

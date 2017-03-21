@@ -29,6 +29,16 @@
           </tr>
         </tbody>
       </table>
+      <nav class="pagination">
+        <ul class="pagination-list">
+          <li v-for="n in pageInfo.pageRange">
+              <a class="pagination-link" 
+                v-bind:class="{ 'is-current': activePage == n - 1 }"
+                v-on:click="paging(limit * (n - 1), n - 1)"
+              >{{ n }}</a>
+          </li>
+        </ul>
+      </nav>
     </div>
     <script type="text/javascript" src="./dist/bundle.js"></script>
 </body>
